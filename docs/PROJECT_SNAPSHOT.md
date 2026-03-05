@@ -1,6 +1,6 @@
 # PROJECT_SNAPSHOT.md
 > **프로젝트명**: LLM & MacBookPro M4Pro (2026 개인공부)
-> **최종 업데이트**: 2026-03-04 | **버전**: v0.1.0
+> **최종 업데이트**: 2026-03-04 | **버전**: vNext
 > **관리 규칙**: 이 파일은 Claude가 항상 최신으로 유지. 변경 시 버전/날짜 갱신 필수.
 
 ---
@@ -19,26 +19,35 @@
 
 | 항목 | 내용 |
 |---|---|
-| **현재 Phase** | Phase 0 — 착수 준비 중 |
-| **완료된 것** | 프로젝트 정의, 협업 규칙 확정, 스키마 v0 초안, 문서 구조 생성 |
-| **진행 중** | GitHub repo 생성, docker-compose(MariaDB) 작성 |
-| **다음 액션** | GPT에게 docker-compose.yml + Mac Agent(Core) 코드 요청 |
+| **현재 Phase** | Phase 0 — 진행 중 |
+| **완료된 것** | 프로젝트 정의, 협업 규칙 확정, 스키마 v0, 문서 구조, GitHub repo 생성, 문서 커밋 |
+| **진행 중** | Phase 0 착수 준비 |
+| **다음 액션** | GPT에게 docker-compose.yml + init.sql + agent_v0.py 요청 (0-1-2부터) |
 
 ---
 
-## 3. 협업 규칙 (Collaboration Rules v1)
+## 3. 완주 원칙 (Principles)
+
+| # | 원칙 |
+|---|---|
+| 1 | Phase 0 DoD = `docker-compose up` → agent 실행 → DB row count 증가 → 그래프 1개 확인 |
+| 2 | 한 Phase에 새로운 큰 기술 요소 1개만 추가 |
+
+---
+
+## 4. 협업 규칙 (Collaboration Rules v1)
 
 | 역할 | 담당 | 도구 |
 |---|---|---|
-| **Claude** | 문서 작성/갱신, 스키마 확정, ADR, GitHub Issues 생성 | Claude.ai |
+| **Claude** | 문서 작성/갱신, 스키마 확정, ADR, 로드맵 유지 | Claude.ai |
 | **ChatGPT** | 실행 코드, docker-compose, agent, API, UI, 디버깅 | ChatGPT |
-| **사용자(나)** | merge, 실행, 결과(로그/스크린샷) 공유 | GitHub + Terminal |
+| **PEGASUS** | merge, 실행, 결과(로그/스크린샷) 공유 | GitHub Desktop + Terminal |
 
 > **SSOT**: `docs/PROJECT_SNAPSHOT.md` — 매 세션 시작 전 이 파일을 LLM에 첨부한다.
 
 ---
 
-## 4. 아키텍처 요약 (Architecture Overview)
+## 5. 아키텍처 요약 (Architecture Overview)
 
 ```
 [Mac Agent(Python)]
@@ -46,21 +55,22 @@
     ▼
 [Phase 0~1] → MariaDB (직접 적재)
 [Phase 2]   → Apache Druid (시계열)
-[Phase 3]   → Kafka → Druid  +  Airflow (배치/집계)
-[Phase 4]   → LLM API (요약/조회/제어)
+[Phase 3A]  → Kafka → Druid  (실시간 스트리밍)
+[Phase 3B]  → Airflow (배치/집계)
+[Phase 4]   → LLM API (요약/조회/제어) + WebSocket
     │
     ▼
-[Spring API] → [Web UI (React)]
-                  ├── 실시간 대시보드 (SSE/WS)
-                  ├── 이력 조회 + 기간 필터
-                  └── 알람 + LLM 자연어 인터페이스
+[Spring Backend] → [React Frontend]
+    ├── 실시간 대시보드 (SSE → Phase 1, WS → Phase 4)
+    ├── 이력 조회 + 기간 필터
+    └── 알람 + LLM 자연어 인터페이스
 ```
 
-> 상세 Mermaid 다이어그램 → `docs/architecture.md` 참조
+> 상세 Mermaid → `docs/architecture.md` 참조
 
 ---
 
-## 5. 스키마 v0 요약 (Schema Summary)
+## 6. 스키마 v0 요약 (Schema Summary)
 
 > 상세 정의 → `docs/schema_v0.md` 참조
 
@@ -85,30 +95,33 @@
 
 ---
 
-## 6. TODO Top 10
+## 7. TODO Top 10
 
 | # | 작업 | Phase | 담당 | 상태 |
 |---|---|---|---|---|
-| 1 | GitHub repo 생성 + 폴더 구조 커밋 | 0 | 사용자 | 🔲 |
-| 2 | docker-compose.yml (MariaDB) 작성 | 0 | GPT | 🔲 |
-| 3 | MariaDB DDL (device, alarm_rule, alarm_event) | 0 | GPT | 🔲 |
-| 4 | Mac Agent v0 (psutil, Core 6종 수집 → MariaDB) | 0 | GPT | 🔲 |
-| 5 | Spring API v0 (최신 메트릭 조회 엔드포인트) | 1 | GPT | 🔲 |
-| 6 | Web UI v0 (폴링 + 그래프 1~2개) | 1 | GPT | 🔲 |
-| 7 | SSE/WS 실시간 갱신 + 기간 필터 | 1 | GPT | 🔲 |
-| 8 | Druid docker-compose + ingestion spec | 2 | GPT | 🔲 |
-| 9 | Kafka + Airflow 도입 | 3 | GPT | 🔲 |
-| 10 | LLM 연동 (요약/조회) | 4 | GPT+Claude | 🔲 |
+| 1 | docker-compose.yml (MariaDB) 작성 | 0-1-2 | GPT | 🔲 |
+| 2 | init.sql DDL (device, alarm_rule, alarm_event) | 0-1-3 | GPT | 🔲 |
+| 3 | DBeaver 연결 확인 | 0-1-4 | PEGASUS | 🔲 |
+| 4 | Python venv + psutil 설치 | 0-2-1 | GPT | 🔲 |
+| 5 | Mac Agent v0 (Core 6종 수집 → MariaDB) | 0-2-2~4 | GPT | 🔲 |
+| 6 | Spring Boot 프로젝트 생성 + MariaDB 연결 | 0-3-1~2 | GPT | 🔲 |
+| 7 | REST API v0 (최신 메트릭 조회) | 0-3-3 | GPT | 🔲 |
+| 8 | React 프로젝트 생성 + API polling | 0-4-1~2 | GPT | 🔲 |
+| 9 | CPU 그래프 1개 (Recharts) | 0-4-3 | GPT | 🔲 |
+| 10 | Phase 0 DoD 최종 확인 | 0 | PEGASUS | 🔲 |
 
 ---
 
-## 7. 결정 기록 요약 (ADR Summary)
+## 8. 결정 기록 요약 (ADR Summary)
 
 > 상세 → `docs/adr.md` 참조
 
 | # | 결정 | 날짜 |
 |---|---|---|
-| ADR-001 | GitHub를 SSOT로, Claude=문서, GPT=코드 역할 분리 | 2026-03-04 |
-| ADR-002 | Phase 0은 Kafka 없이 Agent → MariaDB 직접 적재로 시작 | 2026-03-04 |
-| ADR-003 | 수집 주기: Core 메트릭 5초, Process TopN 15초 | 2026-03-04 |
-| ADR-004 | Process TopN 기준: CPU 기준 상위 10개 | 2026-03-04 |
+| ADR-001 | GitHub SSOT, Claude=문서, GPT=코드 역할 분리 | 2026-03-04 |
+| ADR-002 | Phase 0은 Kafka 없이 Agent → MariaDB 직접 적재 | 2026-03-04 |
+| ADR-003 | 수집 주기: Fast(CPU/MEM/NET/BAT) 5초, Slow(DISK/PROC) 15초 | 2026-03-04 |
+| ADR-004 | Process TopN: CPU 기준 상위 10개 | 2026-03-04 |
+| ADR-005 | Windows 노트북은 Phase 3A Kafka 도입 시점에 2번째 에이전트로 추가 | 2026-03-04 |
+| ADR-006 | Phase 1 실시간은 SSE만, WebSocket은 Phase 4 UI 컨트롤로 미룸 | 2026-03-04 |
+| ADR-007 | Phase 3을 3A(Kafka)와 3B(Airflow)로 분리 | 2026-03-04 |
