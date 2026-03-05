@@ -13,9 +13,9 @@
 | # | 항목 | 학습 내용 | DoD | 상태 |
 |---|---|---|---|---|
 | 0-1-1 | Docker Desktop 설치 (Mac) | Docker 기본 개념, Apple Silicon 호환 | `docker ps` 정상 출력 | ✅ |
-| 0-1-2 | docker-compose 작성 | yml 문법, 서비스/볼륨/네트워크 기본 | `docker-compose up` 후 MariaDB 컨테이너 Running | 🔲 |
-| 0-1-3 | MariaDB 컨테이너 실행 | 포트 바인딩, 초기화 스크립트(init.sql) | DBeaver에서 3306 접속 + 테이블 3개 생성 확인 | 🔲 |
-| 0-1-4 | DBeaver 연결 | DB 클라이언트 기본 사용법 | device/alarm_rule/alarm_event 테이블 조회 성공 | 🔲 |
+| 0-1-2 | docker-compose 작성 | yml 문법, 서비스/볼륨/네트워크 기본 | `docker-compose up` 후 MariaDB 컨테이너 Running | ✅ |
+| 0-1-3 | MariaDB 컨테이너 실행 | 포트 바인딩, 초기화 스크립트(init.sql) | DBeaver에서 3306 접속 + 테이블 3개 생성 확인 | ✅ |
+| 0-1-4 | DBeaver 연결 | DB 클라이언트 기본 사용법 | device/alarm_rule/alarm_event 테이블 조회 성공 | ✅ |
 
 ### 2. Python Agent (Mac 수집)
 | # | 항목 | 학습 내용 | DoD | 상태 |
@@ -134,10 +134,10 @@
 
 | Phase | 전체 항목 | 완료 | 진행중 | 미시작 |
 |---|---|---|---|---|
-| Phase 0 | 14 | 1 | 0 | 13 |
+| Phase 0 | 14 | 4 | 0 | 10 |
 | Phase 1 | 7 | 0 | 0 | 7 |
 | Phase 2 | 5 | 0 | 0 | 5 |
 | Phase 3A | 5 | 0 | 0 | 5 |
 | Phase 3B | 4 | 0 | 0 | 4 |
 | Phase 4 | 9 | 0 | 0 | 9 |
-| **합계** | **44** | **1** | **0** | **43** |
+| **합계** | **44** | **4** | **0** | **40** |

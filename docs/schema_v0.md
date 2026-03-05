@@ -160,7 +160,7 @@ CREATE TABLE alarm_rule (
     rule_id     INT          PRIMARY KEY AUTO_INCREMENT,
     device_id   VARCHAR(64),                          -- NULL = 전체 장비 적용
     metric      VARCHAR(64)  NOT NULL,                -- cpu.usage_pct
-    condition   ENUM('gt','lt','gte','lte') NOT NULL, -- 비교 조건
+    condition_type ENUM('gt','lt','gte','lte') NOT NULL, -- 비교 조건 (gt=초과, lt=미만, gte=이상, lte=이하)
     threshold   FLOAT        NOT NULL,                -- 임계값
     duration_s  INT          DEFAULT 0,               -- 지속 시간(초) 초과 시 발동
     severity    ENUM('info','warn','critical') DEFAULT 'warn',
@@ -178,8 +178,7 @@ CREATE TABLE alarm_event (
     triggered_at DATETIME    NOT NULL,
     value       FLOAT,                                -- 트리거 시점 값
     resolved_at DATETIME     DEFAULT NULL,            -- NULL = 미해소
-    note        TEXT,
-    FOREIGN KEY (rule_id) REFERENCES alarm_rule(rule_id)
+    note        TEXT
 );
 ```
 
@@ -191,4 +190,5 @@ CREATE TABLE alarm_event (
 |---|---|---|
 | Core Fast | cpu, memory, network, battery | 5초 |
 | Core Slow | disk, process TopN | 15초 |
+| Optional | thermal, gpu | 30초 |
 | Optional | thermal, gpu | 30초 |
