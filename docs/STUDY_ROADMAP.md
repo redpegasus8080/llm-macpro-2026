@@ -20,9 +20,9 @@
 ### 2. Python Agent (Mac 수집)
 | # | 항목 | 학습 내용 | DoD | 상태 |
 |---|---|---|---|---|
-| 0-2-1 | Python 가상환경 설정 | venv / pip, 의존성 관리 | `pip list`에 psutil, PyMySQL 확인 | 🔲 |
-| 0-2-2 | psutil 기본 사용법 | CPU/메모리/디스크/네트워크/배터리/프로세스 수집 API | 터미널에서 6종 수집값 print 출력 확인 | 🔲 |
-| 0-2-3 | 수집 스케줄러 구현 | threading / schedule, 주기별 실행 (Fast 5초/Slow 15초) | 30초 실행 후 Fast 6회·Slow 2회 로그 확인 | 🔲 |
+| 0-2-1 | Python 가상환경 설정 | venv / pip, 의존성 관리 | `pip list`에 psutil, PyMySQL 확인 | ✅ |
+| 0-2-2 | psutil 기본 사용법 | CPU/메모리/디스크/네트워크/배터리/프로세스 수집 API | 터미널에서 6종 수집값 print 출력 확인 | ✅ |
+| 0-2-3 | 수집 스케줄러 구현 | threading / schedule, 주기별 실행 (Fast 5초/Slow 15초) | 30초 실행 후 Fast 6회·Slow 2회 로그 확인 | ✅ |
 | 0-2-4 | MariaDB INSERT 구현 | PyMySQL 연결, INSERT 쿼리 | DBeaver에서 row count 증가 확인 | 🔲 |
 
 ### 3. Backend (Spring Boot)
@@ -134,10 +134,10 @@
 
 | Phase | 전체 항목 | 완료 | 진행중 | 미시작 |
 |---|---|---|---|---|
-| Phase 0 | 14 | 4 | 0 | 10 |
+| Phase 0 | 14 | 7 | 0 | 7 |
 | Phase 1 | 7 | 0 | 0 | 7 |
 | Phase 2 | 5 | 0 | 0 | 5 |
 | Phase 3A | 5 | 0 | 0 | 5 |
 | Phase 3B | 4 | 0 | 0 | 4 |
 | Phase 4 | 9 | 0 | 0 | 9 |
-| **합계** | **44** | **4** | **0** | **40** |
+| **합계** | **44** | **7** | **0** | **37** |

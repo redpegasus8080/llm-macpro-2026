@@ -20,9 +20,9 @@
 | 항목 | 내용 |
 |---|---|
 | **현재 Phase** | Phase 0 — 진행 중 |
-| **완료된 것** | 프로젝트 정의, 협업 규칙 확정, 스키마 v0, 문서 구조, GitHub repo 생성, 문서 커밋 |
-| **진행 중** | Phase 0 착수 준비 |
-| **다음 액션** | GPT에게 docker-compose.yml + init.sql + agent_v0.py 요청 (0-1-2부터) |
+| **완료된 것** | 프로젝트 정의, 협업 규칙 확정, 스키마 v0, 문서 구조, GitHub repo 생성, MariaDB 컨테이너, Python Agent 스케줄러 구현 |
+| **진행 중** | Phase 0 — 0-2-4 MariaDB INSERT 구현 준비 중 |
+| **다음 액션** | `0-2-4` Python Agent → MariaDB INSERT 구현 |
 
 ---
 
